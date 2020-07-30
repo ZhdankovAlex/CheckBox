@@ -10,7 +10,9 @@ class MyApp extends StatefulWidget
 
 class _MyAppState extends State<MyApp>
 {
-  bool checkboxVal = false;
+  bool russianVal = false;
+  bool englishVal = false;
+  String curentLanguage = "Язык";
 
   @override
   Widget build(BuildContext context)
@@ -21,23 +23,41 @@ class _MyAppState extends State<MyApp>
         body: Center(child: Column(mainAxisAlignment: MainAxisAlignment.center,
                       children:<Widget>
                       [
-                        Row(mainAxisAlignment: MainAxisAlignment.center,
+                        Column(mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>
                         [
-                          Column(mainAxisAlignment: MainAxisAlignment.center,
+                          Text (curentLanguage),
+                          //Russian checkbox
+                          Row(mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
-                            Text ("Push it!"),
-                            Checkbox(value: checkboxVal,
+                            Text ("Русский"),
+                            Checkbox(value: russianVal,
                               onChanged: (bool value)
                               {
                                 setState(()
                                 {
-                                  checkboxVal = value;
+                                    englishVal = !value;
+                                    russianVal = value;
+                                    curentLanguage = "Язык";
                                 });
                               },)
-                          ],)
-                        ]),
-                        Text("Value: $checkboxVal\n")
+                          ],),
+                          //English checkbox
+                          Row(mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Text ("English"),
+                              Checkbox(value: englishVal,
+                                onChanged: (bool value)
+                                {
+                                  setState(()
+                                  {
+                                      russianVal = !value;
+                                      englishVal = value;
+                                      curentLanguage = "Language";
+                                  });
+                                },)
+                            ],)
+                        ])
                       ],),
                     ),
       );
