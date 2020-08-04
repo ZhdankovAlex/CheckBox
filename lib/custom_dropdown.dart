@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 class CustomDropdown extends StatefulWidget
 {
-  final String text;
-  const CustomDropdown({Key key, @required this.text}): super(key: key);
+  String text;
+  CustomDropdown({Key key, @required this.text}): super(key: key);
   @override
   _CustomDropdownState createState() => _CustomDropdownState();
 }
@@ -15,7 +15,6 @@ class _CustomDropdownState extends State<CustomDropdown>
   OverlayEntry floatingDropdown;
   IconData shevron = IconData(0xe5cc, fontFamily: 'MaterialIcons', matchTextDirection: true);
   double height, width, xPosition, yPosition;
-  //String currentLanguage = "Язык";
 
   @override
   void initState()
@@ -43,9 +42,7 @@ class _CustomDropdownState extends State<CustomDropdown>
         width: width,
         top: yPosition + height,
         height: 2 * height + 40,
-        child: DropDown(
-            itemHeight: height,
-          ),
+        child: DropDownState(itemHeight: height,),
       );
     });
   }
@@ -72,13 +69,12 @@ class _CustomDropdownState extends State<CustomDropdown>
               shevron = IconData(0xe5cf, fontFamily: 'MaterialIcons');
             }
           isDropdownOpened = !isDropdownOpened;
+          //Navigator.pop(context);
         });
       },
      child: Container(
       decoration:
-          BoxDecoration(
-            color:Colors.white,
-          ),
+          BoxDecoration(color:Colors.white,),
       padding: const EdgeInsets.symmetric(horizontal:16, vertical:8),
       child:
         Row
@@ -94,49 +90,34 @@ class _CustomDropdownState extends State<CustomDropdown>
   }
 }
 
-class DropDown extends StatelessWidget
+class DropDownState extends StatefulWidget
 {
   final double itemHeight;
-  const DropDown({Key key, this.itemHeight}): super(key:key);
+  DropDownState({Key key, this.itemHeight}): super(key: key);
+  @override
+  DropDown createState() => DropDown();
+}
+
+class DropDown extends State<DropDownState>
+{
+  @override
+  void initState()
+  {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context)
   {
     return Column(
       children: <Widget>[
-        /*SizedBox(height: 5,),
-        Align(
-          alignment: Alignment(-0.9, 0),
-          child: ClipPath(
-            clipper:
-              ArrowClipper(),
-            child:
-              Container(
-              height: 20,
-              width: 30,
-              decoration:
-                BoxDecoration(
-                  color: Colors.black12,
-                ),
-              ),
-          ),
-        ),*/
         Material(
           elevation: 20,
           child: Container(
-            height: 2 * itemHeight,
-            decoration: BoxDecoration(
-              color: Colors.black12,
-            ),
+            decoration: BoxDecoration(color: Colors.black12,),
             child: Column(
              children: <Widget>[
-              DropDownItem(
-                text: "Русский",
-                //checkbox!!!!!!!!!!!????????????????????
-              ),
-              DropDownItem(
-                text: "English",
-                //checkbox!!!!!!!!!!!????????????????????
-              ),
+               DropDownItemState(),
             ],
           ),
         ),
@@ -146,49 +127,75 @@ class DropDown extends StatelessWidget
   }
 }
 
-class DropDownItem extends StatelessWidget
+class DropDownItemState extends StatefulWidget
 {
-  final String text;
-  final bool isSelected;
+  bool isSelectedEnglish;
+  bool isSelectedRussian;
+  DropDownItemState({Key key,
+    this.isSelectedEnglish = false,
+    this.isSelectedRussian = true,
+  }): super (key: key);
+  @override
+  DropDownItem createState() => DropDownItem();
+}
 
-  const DropDownItem({Key key, this.text, this.isSelected}): super (key: key);
-
+class DropDownItem extends State<DropDownItemState>
+{
   @override
   Widget build(BuildContext context)
   {
     return Container(
-        decoration:
-        BoxDecoration(),
         padding: const EdgeInsets.symmetric(horizontal:16, vertical:8),
         child:
-        Row(mainAxisAlignment: MainAxisAlignment.center,
+        Column(mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text (text),
-
+            //Russian checkbox
+            Row(mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Text ("Русский"),
+                Theme(data: ThemeData(unselectedWidgetColor: Colors.black54,),
+                  child: Checkbox(value: widget.isSelectedRussian,
+                    checkColor: const Color(0xffffbe3b),
+                    activeColor: Colors.black12,
+                    onChanged: (bool value)
+                    {
+                      setState(()
+                      {
+                        widget.isSelectedEnglish = !value;
+                        widget.isSelectedRussian = value;
+                        //Navigator.push(context, new MaterialPageRoute(builder: (context) => new CustomDropdown(text: "Язык")));
+                      });
+                    },
+                  ),
+                ),
+              ],
+            ),
+            //English checkbox
+            Row(mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Text ("English"),
+                Theme(data: ThemeData(unselectedWidgetColor: Colors.black54,),
+                  child: Checkbox(value: widget.isSelectedEnglish,
+                    checkColor: const Color(0xffffbe3b),
+                    activeColor: Colors.black12,
+                    onChanged: (bool value)
+                    {
+                      setState(()
+                      {
+                        widget.isSelectedEnglish = value;
+                        widget.isSelectedRussian = !value;
+                        //Navigator.push(context, new MaterialPageRoute(builder: (context) => new CustomDropdown(text: "Language")));
+                      });
+                    },
+                  ),
+                ),
+              ],
+            ),
           ],
         ),
     );
   }
 }
-
-/*class ArrowClipper extends CustomClipper<Path>
-{
-  @override
-  Path getClip(Size size)
-  {
-   Path path = Path();
-   path.moveTo(0, size.height);
-   path.lineTo(size.width/2, 0);
-   path.lineTo(size.width, size.height);
-   return path;
-  }
-
-  @override
-  bool shouldReclip(CustomClipper<Path> oldClipper)
-  {
-
-  }
-}*/
 
 
 
