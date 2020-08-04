@@ -1,23 +1,28 @@
+import 'package:checkbox/custom_dropdown.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(MaterialApp(home: MyApp()));
 
-class MyApp extends StatefulWidget
+class MyApp extends StatelessWidget
 {
-  @override
-  _MyAppState createState() => _MyAppState();
-}
-
-class _MyAppState extends State<MyApp>
-{
-  bool russianVal = false;
-  bool englishVal = false;
-  String currentLanguage = "Язык";
-
   @override
   Widget build(BuildContext context)
   {
-    return Scaffold
+    return MaterialApp
+    (
+      title: 'Flutter Demo',
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(primarySwatch: Colors.grey),
+      home: Scaffold(
+          body: Padding(
+            padding: const EdgeInsets.only(top: 48.0, left: 32.0, right: 32.0),
+            child: CustomDropdown(text: "Язык"),
+          )
+        )
+    );
+  }
+    /*return Scaffold
       (
         appBar: AppBar(title: Text('Checkbox'),
                        centerTitle: true,
@@ -75,5 +80,5 @@ class _MyAppState extends State<MyApp>
                       ],),
                     ),
       );
-  }
+  }*/
 }
