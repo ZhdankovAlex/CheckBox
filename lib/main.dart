@@ -83,8 +83,10 @@ class _CustomDropdownState extends State<CustomDropdown> {
                                   child: Checkbox(value: isSelectedRussian,
                                     checkColor: const Color(0xffffbe3b),
                                     activeColor: Colors.black12,
-                                    onChanged: (bool value){
-                                      setState((){
+                                    onChanged: (bool value)
+                                    {
+                                      setState(()
+                                      {
                                         widget.text = "Русский";
                                         isSelectedEnglish = false;
                                         isSelectedRussian = true;
