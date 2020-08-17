@@ -1,9 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'checkboxList.dart';
+import 'learning.dart';
+import 'notifications.dart';
 
 void main() => runApp(MaterialApp(home: MyApp()));
 
 class MyApp extends StatelessWidget{
+  
   String profile = "Профиль";
 
   @override
@@ -59,9 +63,6 @@ class _CustomDropdownState extends State<CustomDropdown>{
       0xe5cc, fontFamily: 'MaterialIcons', matchTextDirection: true);
   double height, width, xPosition, yPosition;
 
-  bool isSelectedEnglish = false;
-  bool isSelectedRussian = true;
-
   @override
   void initState(){
     actionKey = LabeledGlobalKey(widget.language);
@@ -94,47 +95,7 @@ class _CustomDropdownState extends State<CustomDropdown>{
                   children: <Widget>[
                     Container(
                       padding: const EdgeInsets.symmetric(horizontal:16, vertical:8),
-                      child:
-                      Column(mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Row(mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              Text ("Русский"),
-                              Theme(data: ThemeData(unselectedWidgetColor: Colors.black54,),
-                                child: Checkbox(value: isSelectedRussian,
-                                  checkColor: const Color(0xffffbe3b),
-                                  activeColor: Colors.black12,
-                                  onChanged: (bool value){
-                                    setState((){
-                                      widget.language = "Язык";
-                                      isSelectedEnglish = false;
-                                      isSelectedRussian = true;
-                                    });
-                                  },
-                                ),
-                              ),
-                            ],
-                          ),
-                          Row(mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              Text ("English"),
-                              Theme(data: ThemeData(unselectedWidgetColor: Colors.black54,),
-                                child: Checkbox(value: isSelectedEnglish,
-                                  checkColor: const Color(0xffffbe3b),
-                                  activeColor: Colors.black12,
-                                  onChanged: (bool value){
-                                    setState((){
-                                      widget.language = "Language";
-                                      isSelectedEnglish = true;
-                                      isSelectedRussian = false;
-                                    });
-                                  },
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
+                      child: CheckboxList(),
                     ),
                   ],
                 ),
@@ -180,33 +141,5 @@ class _CustomDropdownState extends State<CustomDropdown>{
           )
       ),
     );
-  }
-}
-
-class Notifications extends StatefulWidget{
-
-  @override
-  _Notifications createState() => _Notifications();
-}
-
-class _Notifications extends State<Notifications>{
-
-  @override
-  Widget build(BuildContext context){
-
-  }
-}
-
-class Learning extends StatefulWidget{
-
-  @override
-  _Learning createState() => _Learning();
-}
-
-class _Learning extends State<Learning>{
-
-  @override
-  Widget build(BuildContext context){
-
   }
 }
