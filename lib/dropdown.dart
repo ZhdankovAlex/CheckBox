@@ -4,13 +4,14 @@ import 'language.dart';
 import 'state_container.dart';
 
 class CustomDropdown extends StatefulWidget{
+  Language our_language;
+
   @override
   _CustomDropdownState createState() => _CustomDropdownState();
 }
 
 class _CustomDropdownState extends State<CustomDropdown>{
   GlobalKey actionKey;
-  Language our_language;
   bool isDropdownOpened = false;
   OverlayEntry floatingDropdown;
   IconData shevron = IconData(
@@ -19,7 +20,10 @@ class _CustomDropdownState extends State<CustomDropdown>{
 
   @override
   void initState(){
-    actionKey = LabeledGlobalKey(our_language.language);
+    if(widget.our_language == null){
+      widget.our_language = new Language(language: "Русский");
+    }
+    actionKey = LabeledGlobalKey(widget.our_language.language);
     super.initState();
   }
 
@@ -64,7 +68,12 @@ class _CustomDropdownState extends State<CustomDropdown>{
   @override
   Widget build(BuildContext context){
     final container = StateContainer.of(context);
-    our_language = container.our_language;
+    if(container.our_language != null){
+      widget.our_language = container.our_language;
+    }
+    else{
+      widget.our_language = new Language(language: "Русский");
+    }
 
     return GestureDetector(
       key: actionKey,
@@ -92,7 +101,7 @@ class _CustomDropdownState extends State<CustomDropdown>{
           Row(
               children: <Widget>[
                 Icon(shevron, color: const Color(0xffffbe3b)),
-                Text(our_language.language,
+                Text(widget.our_language.language,
                   style: TextStyle(color: Colors.black, fontSize: 22),),
               ]
           )
