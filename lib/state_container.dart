@@ -23,7 +23,7 @@ class StateContainerState extends State<StateContainer>{
     if(our_language == null) {
       our_language = new Language(language: current_language);
       setState(() {
-        our_language = current_language;
+        our_language.language = current_language;
       });
     }
     else{

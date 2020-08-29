@@ -15,23 +15,24 @@ class _CheckboxList extends State <CheckboxList>{
 
   Save(){
     final container = StateContainer.of(context);
-    container.updateLanguage(current_language: currentLanguage);
+    container.updateLanguage(current_language: currentLanguage.language);
   }
 
   @override
   Widget build(BuildContext context){
 
+    currentLanguage = StateContainer.of(context).our_language;
+
     if(currentLanguage != null){
-      if (currentLanguage.language == "Language"){
-        isSelectedEnglish = true;
-        isSelectedRussian = false;
-      }
-      else{
+      if(currentLanguage.language == "Язык"){
         isSelectedRussian = true;
         isSelectedEnglish = false;
       }
-    }
-    else{
+      else{
+        isSelectedRussian = false;
+        isSelectedEnglish = true;
+      }
+    } else{
       currentLanguage = new Language(language: "Язык");
       isSelectedRussian = true;
       isSelectedEnglish = false;

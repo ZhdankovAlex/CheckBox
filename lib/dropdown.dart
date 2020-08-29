@@ -19,9 +19,11 @@ class _CustomDropdownState extends State<CustomDropdown>{
   double height, width, xPosition, yPosition;
 
   @override
+  //вызовется один раз (до build, видимо, хотя хз на самом деле)
   void initState(){
+    //костыль. инициализируем текст нашей плашки с языком.
     if(widget.our_language == null){
-      widget.our_language = new Language(language: "Русский");
+      widget.our_language = new Language(language: "Язык");
     }
     actionKey = LabeledGlobalKey(widget.our_language.language);
     super.initState();
@@ -66,13 +68,14 @@ class _CustomDropdownState extends State<CustomDropdown>{
   }
 
   @override
+  //запускается многократно - как только изменим содержимое
   Widget build(BuildContext context){
     final container = StateContainer.of(context);
     if(container.our_language != null){
       widget.our_language = container.our_language;
     }
     else{
-      widget.our_language = new Language(language: "Русский");
+      widget.our_language = new Language(language: "Язык");
     }
 
     return GestureDetector(
