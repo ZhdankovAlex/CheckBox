@@ -2,7 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'dropdown.dart';
 import 'state_container.dart';
-import 'language.dart';
+import 'notifications.dart';
+import 'learning.dart';
 
 void main(){
   runApp(StateContainer(child: new MyApp(),));
@@ -51,7 +52,8 @@ class MyApp extends StatelessWidget{
             padding: const EdgeInsets.only(top: 0, left: 32.0, right: 32.0),
             child: Column(
               children: <Widget>[
-                //Notifications(),
+                Notifications(),
+                Learning(),
                 CustomDropdown(),
               ],
             ),
