@@ -1,41 +1,28 @@
 import 'package:flutter/material.dart';
 import 'state_container.dart';
-import 'learning_window.dart';
 
-class Learning extends StatefulWidget{
-
-  @override
-  _Learning createState() => _Learning();
-}
-
-class _Learning extends State<Learning>{
-  String learning = "Обучение";
-  IconData shevron = IconData(
-      0xe5cc, fontFamily: 'MaterialIcons', matchTextDirection: true);
-
+class NotificationScreen extends StatelessWidget{
+  String back = "Вернуться";
+  
   @override
   Widget build(BuildContext context){
+
     final container = StateContainer.of(context);
     if(container.our_language != null){
       if(container.our_language.language == "Язык") {
-        learning = "Обучение";
+        back = "Вернуться";
       }
       else{
-        learning = "Learning";
+        back = "Go Back";
       }
     }
     else{
-      learning = "Обучение";
+      back = "Вернуться";
     }
 
     return GestureDetector(
       onTap: (){
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => LearningScreen(),
-            )
-        );
+        Navigator.pop(context);
       },
       child: Container(
           decoration:
@@ -44,8 +31,9 @@ class _Learning extends State<Learning>{
           child:
           Row(
               children: <Widget>[
-                Icon(shevron, color: const Color(0xffffbe3b)),
-                Text(learning,
+                Icon(Icons.keyboard_backspace, color: const Color(0xffffbe3b)),
+                Spacer(),
+                Text(back,
                   style: TextStyle(color: Colors.black, fontSize: 22),),
               ]
           )

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'state_container.dart';
+import 'notification_window.dart';
 
 class Notifications extends StatefulWidget{
 
@@ -28,7 +29,16 @@ class _Notifications extends State<Notifications>{
       notifications = "Уведомления";
     }
 
-    return Container(
+    return GestureDetector(
+        onTap: (){
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => NotificationScreen(),
+            )
+          );
+        },
+        child: Container(
             decoration:
             BoxDecoration(color: Colors.white,),
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
@@ -40,6 +50,7 @@ class _Notifications extends State<Notifications>{
                     style: TextStyle(color: Colors.black, fontSize: 22),),
                 ]
             )
+        ),
     );
   }
 }
