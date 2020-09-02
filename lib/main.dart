@@ -4,6 +4,7 @@ import 'dropdown.dart';
 import 'state_container.dart';
 import 'notifications.dart';
 import 'learning.dart';
+import 'profile.dart';
 
 void main(){
   runApp(StateContainer(child: new MyApp(),));
@@ -54,6 +55,7 @@ class MyApp extends StatelessWidget{
               children: <Widget>[
                 Notifications(),
                 Learning(),
+                Profile(),
                 CustomDropdown(),
               ],
             ),
